@@ -42,14 +42,14 @@ MXModel::MXModel(const std::string& symbol_p, const std::string& params_p,
 
 void MXModel::run_with_input_BGR_8UC3(const uint8_t *p_image_data) {
     // make it RGB, subtract mean, normalize
-    float *ptrs[3] = { _input_buffer.data(), 
-        _input_buffer.data() + _imageH*_imageW*2, 
-        _input_buffer.data() + _imageH*_imageW };
+    float *ptrs[3] = { _input_buffer.data(),
+        _input_buffer.data() + _imageH*_imageW, 
+        _input_buffer.data() + _imageH*_imageW*2};
     for (size_t i = 0, out_idx = 0, in_idx = 0; i < _imageH; i++) {
         for (size_t j = 0; j < _imageW; j++) {
-            ptrs[0][out_idx] = (p_image_data[in_idx++] - 128.0f)/128.0f;
-            ptrs[1][out_idx] = (p_image_data[in_idx++] - 128.0f)/128.0f;
             ptrs[2][out_idx] = (p_image_data[in_idx++] - 128.0f)/128.0f;
+            ptrs[1][out_idx] = (p_image_data[in_idx++] - 128.0f)/128.0f;
+            ptrs[0][out_idx] = (p_image_data[in_idx++] - 128.0f)/128.0f;
             out_idx++;
         }
     }

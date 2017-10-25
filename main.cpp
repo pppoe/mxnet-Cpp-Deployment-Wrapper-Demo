@@ -24,7 +24,6 @@ int main(int argc, char **argv) {
     ifstream fs(argv[3]);
     vector<string> class_names;
     string tmp_str;
-    getline(fs, tmp_str);
     while (getline(fs, tmp_str)) {
         class_names.push_back(tmp_str);
     }
